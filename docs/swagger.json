@@ -1,10 +1,9 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "description": "Here are the methods of the contracting and quotation modules.",
-    "version": "1.0.0",
-    "title": "Swagger contracting and quotation modules",
-    "termsOfService": "http://swagger.io/terms/",
+    "title": "Quote contract.",
+    "description": "Here are the methoods of the quote contract",
+    "version": "0.0.1",
     "contact": {
       "email": "ac.lopez@uniandes.edu.co"
     },
@@ -13,362 +12,115 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "modules.swagger.io",
-  "basePath": "/v2",
-  "tags": [
+  "servers": [
     {
-      "name": "quotation",
-      "description": "Ethe quote module",
-      "externalDocs": {
-        "description": "Find out more",
-        "url": "http://swagger.io"
-      }
-    },
-    {
-      "name": "contracting",
-      "description": "Ethe contracting module"
+      "url": "/api",
+      "description": "API server"
     }
   ],
-  "schemes": [
-    "https",
-    "http"
-  ],
   "paths": {
-    "/quotation": {
-      "post": {
-        "tags": [
-          "quotation"
-        ],
-        "summary": "Add a new quotation blockchan",
-        "description": "Create a quote",
-        "operationId": "addQuote",
-        "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "moneyPrice",
-            "in": "formData",
-            "description": "The cost must be added in senecas",
-            "required": true,
-            "type": "number",
-            "format": "number64"
-          },
-          {
-            "name": "material",
-            "in": "formData",
-            "description": "The cost of materials must be added",
-            "required": true,
-            "type": "number",
-            "format": "number64"
-          },
-          {
-            "name": "time",
-            "in": "formData",
-            "description": "The cost must be added in time",
-            "required": true,
-            "type": "number",
-            "format": "number64"
-          },
-          {
-            "name": "name",
-            "in": "formData",
-            "description": "The name of the document to be quoted must be added",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "date",
-            "in": "formData",
-            "description": "The date on which the document will be printed must be added",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "userId",
-            "in": "formData",
-            "description": "The user id must be added",
-            "required": true,
-            "type": "integer",
-            "format": "integer64"
-          },
-          {
-            "name": "printerId",
-            "in": "formData",
-            "description": "The printer id must be added",
-            "required": true,
-            "type": "integer",
-            "format": "integer64"
-          }
-        ],
-        "responses": {
-          "405": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-    "/quotation/{quotationId}": {
+    "/quote": {
       "get": {
-        "tags": [
-          "quotation"
-        ],
-        "summary": "Get a quote based on your id",
-        "description": "Look for the quote in bockchain",
-        "operationId": "getQuotationById",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "quotationId",
-            "in": "path",
-            "description": "ID of quotation to return",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
+        "summary": "Return quote's",
+        "description": "Get all the quotes",
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/Pet"
+            "description": "Some description",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
               }
             }
-          },
-          "400": {
-            "description": "Invalid id value"
-          }
-        }
-      }
-    },
-    "/quotation/valide/{quotationId}": {
-      "get": {
-        "tags": [
-          "quotation"
-        ],
-        "summary": "validate quote based on your id",
-        "description": "validate quote",
-        "operationId": "valideQuotationById",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "quotationId",
-            "in": "path",
-            "description": "ID of quotation to return",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          "400": {
-            "description": "Invalid id value"
-          }
-        }
-      }
-    },
-    "/contracting": {
-      "post": {
-        "tags": [
-          "contracting"
-        ],
-        "summary": "Add a new contrate blockchan",
-        "description": "Create a contrate",
-        "operationId": "addContrate",
-        "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "quotationId",
-            "in": "formData",
-            "description": "The quotation id must be added",
-            "required": true,
-            "type": "integer",
-            "format": "integer64"
-          }
-        ],
-        "responses": {
-          "405": {
-            "description": "Invalid input"
-          }
-        }
-      }
-    },
-    "/contracting/{contractId}": {
-      "get": {
-        "tags": [
-          "contracting"
-        ],
-        "summary": "Get a contract based on your id",
-        "description": "Look for the quote in bockchain",
-        "operationId": "getContractnById",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "contractId",
-            "in": "path",
-            "description": "ID of contract to return",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "items": {
-                "$ref": "#/definitions/Pet"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid id value"
           }
         }
       },
       "post": {
-        "tags": [
-          "contracting"
-        ],
-        "summary": "Add a new return money contrate blockchan",
-        "description": "Create a contrate",
-        "operationId": "ReturnMoney",
-        "consumes": [
-          "application/json",
-          "application/xml"
-        ],
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "contractId",
-            "in": "path",
-            "description": "The contract id must be added",
-            "required": true,
-            "type": "integer",
-            "format": "integer64"
-          },
-          {
-            "name": "sumary",
-            "in": "formData",
-            "description": "The reason for the error must be added",
-            "required": true,
-            "type": "string"
+        "summary": "Add a new quotation to blockchain",
+        "description": "Create a quote",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "moneyPrice": 100,
+                "materialPrice": 20,
+                "timePrice": 200,
+                "docName": "trabajoFinal",
+                "date": "20/03/2021",
+                "userId": 123123,
+                "printerId": 8372
+              }
+            }
           }
-        ],
+        },
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "Respose",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/contracting/valide/{quotationId}": {
+    "/{id}": {
       "get": {
-        "tags": [
-          "contracting"
-        ],
-        "summary": "validate quote based on your id",
-        "description": "validate quote",
-        "operationId": "valQuotationById",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
+        "summary": "Returns a quote by ID",
         "parameters": [
           {
-            "name": "quotationId",
+            "name": "id",
             "in": "path",
-            "description": "ID of quotation to return",
             "required": true,
-            "type": "integer",
-            "format": "int64"
+            "description": "The ID of the quote to return.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "example": 10
           }
         ],
         "responses": {
           "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "boolean"
+            "description": "The quote",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "moneyPrice": 100,
+                  "materialPrice": 20,
+                  "timePrice": 200,
+                  "docName": "trabajoFinal",
+                  "date": "20/03/2021",
+                  "userId": 123123,
+                  "printerId": 8372
+                }
+              }
             }
-          },
-          "400": {
-            "description": "Invalid id value"
-          }
-        }
-      }
-    },
-    "/contracting/CheckBalance": {
-      "get": {
-        "tags": [
-          "contracting"
-        ],
-        "summary": "validate that the user has enough money",
-        "description": "It is responsible for verifying that the user has enough senecas to print and if they do, it is expected that these will be discounted by contacting the currency module",
-        "operationId": "CheckBalance",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "formData",
-            "description": "ID of user to validate",
-            "required": true,
-            "type": "integer",
-            "format": "int64"
-          },
-          {
-            "name": "senecas",
-            "in": "formData",
-            "description": "amount of money to discount ",
-            "required": true,
-            "type": "number",
-            "format": "number64"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          "400": {
-            "description": "Invalid id value"
           }
         }
       }
